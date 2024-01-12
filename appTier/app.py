@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -13,6 +13,7 @@ mongo = PyMongo(app)
 
 # JWT Config with random key
 app.config['JWT_SECRET_KEY'] = secrets.token_urlsafe(16)
+app.config['JWT_TOKEN_LOCATION'] = ['cookies']
 jwt = JWTManager(app)
 
 
@@ -31,7 +32,8 @@ def login():
     user = mongo.db.users.find_one({'username': request.json.get('username')})
     if user and check_password_hash(user['password'], request.json.get('password')):
         access_token = create_access_token(identity=user['username'])
-        return jsonify(access_token=access_token), 200
+        session['jwt'] = access_token
+        return jsonify({"message": "login successful"}), 200
     return jsonify({"message": "Invalid credentials"}), 401
 
 
