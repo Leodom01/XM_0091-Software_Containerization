@@ -1,0 +1,48 @@
+[
+    {
+      "title": "Solder wire 4T",
+      "body": "Check that cable and look for bugs in the shed, they crash the machine",
+      "creation_date": "1940-03-18T08:00:00Z",
+      "deletion_date": "1940-03-18T18:32:00Z",
+      "owner_id": "0"
+    },
+    {
+      "title": "Beer with pals",
+      "body": "I have a beer with my colleagues down at the pub, remember not to dance.",
+      "creation_date": "1939-08-15T08:00:00Z",
+      "owner_id": "0"
+    },
+    {
+      "title": "Send message",
+      "body": "Remember to send message to Bob Alicer without getting it sniffed.",
+      "creation_date": "2000-01-01T09:30:12Z",
+      "owner_id": "1"
+    },
+    {
+      "title": "Plot against Eve",
+      "body": "That person is so bothersome, I need to find a way to stop her, if I could just use TLS...",
+      "creation_date": "2018-11-04T19:40:06Z",
+      "owner_id": "1"
+    },
+    {
+      "title": "Encrypt message",
+      "body": "Tomorrow I'll have to speak to Charlie and Eve is always in the middle, I need to encrypt my mail.",
+      "creation_date": "2021-09-04T11:00:43Z",
+      "deletion_date": "2021-09-05T19:00:43Z",
+      "owner_id": "1"
+    },
+    {
+      "title": "Launch Windows 95",
+      "body": "Developers, developers, developers, developers, developers, developers, developers, developers, developers, developers, developers, developers, developers, developers, developers, developers, developers, developers, developers, developers.",
+      "creation_date": "1995-08-24T09:05:35Z",
+      "owner_id": "2"
+    },
+    {
+      "title": "Talk to Bill",
+      "body": "We're gonna dance on stage ok, well, Bill looks so weird when he does it, well, stop him, tell him, tie him, he CANNOT dance. And always, remember to go crazy ON STAGE.",
+      "creation_date": "1994-12-14T19:06:35Z",
+      "deletion_date": "2008-11-07T05:32:00Z",
+      "owner_id": "2"
+    }
+  ]
+  
