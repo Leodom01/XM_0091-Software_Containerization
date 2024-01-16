@@ -1,31 +1,46 @@
-<!-- src/views/Home.vue -->
 <template>
   <div>
-    <h1>Home</h1>
-    <router-link to="/login">Login</router-link>
-    <router-link to="/register">Register</router-link>
+    <header>
+      <h1>Reminders</h1>
+    </header>
 
-    <!-- Add a condition to show the reminders only if the user is authenticated -->
-    <div v-if="authenticated">
-      <Reminders />
+    <div>
+      <AuthForm :authService="authService" />
     </div>
+
+    <main>
+      <div v-if="!authService.isAuthenticated()">
+        <p>No user logged in.</p>
+      </div>
+      <div v-else>
+        <RemindersList />
+      </div>
+    </main>
+
+
   </div>
 </template>
 
 <script>
-import Reminders from './RemindersView.vue';
+import AuthService from '@/services/AuthService';
+import RemindersList from '@/components/RemindersList.vue';
+import AuthForm from '@/components/AuthForm.vue';
+
 
 export default {
-  components: {
-    Reminders,
+  setup() {
+    return {
+      AuthService,
+    };
   },
   computed: {
-    authenticated() {
-      // Implement a check to determine if the user is authenticated
-      // You can use Vuex or another state management solution for this
-      // For simplicity, you can use a local variable or local storage
-      return localStorage.getItem('authToken') !== null;
+    authService() {
+      return AuthService;
     },
+  },
+  components: {
+    RemindersList,
+    AuthForm,
   },
 };
 </script>

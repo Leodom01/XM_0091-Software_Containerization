@@ -1,9 +1,14 @@
 // src/services/AuthService.js
 import axios from 'axios';
+import { reactive } from 'vue';
 
-const API_URL = 'http://your-api-url'; // Replace with your API endpoint
+const API_URL = process.env.API_URL
 
 class AuthService {
+    data = reactive({
+        authenticated: true,
+    });
+
     login(user) {
         return axios.post(`${API_URL}/login`, user);
     }
@@ -13,11 +18,13 @@ class AuthService {
     }
 
     logout() {
-        localStorage.removeItem('authToken');
+        // localStorage.removeItem('authToken');
+        console.log(this.authenticated)
     }
 
     isAuthenticated() {
-        return !!localStorage.getItem('authToken');
+        return this.data.authenticated;
+        // return !!localStorage.getItem('authToken');
     }
 }
 
