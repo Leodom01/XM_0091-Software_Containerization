@@ -4,24 +4,21 @@
       "name": "Alan",
       "surname": "Turing",
       "email": "a.turing@student.kcl.ac.uk",
-      "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-      "roles": ["admin", "user", "pro_user"]
+      "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
     },
     {
       "_id": "1",
       "name": "Alice",
       "surname": "Bobber",
       "email": "alice.bobberh@google.com",
-      "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-      "roles": ["user", "pro_user"]
+      "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
     },
     {
       "_id": "2",  
       "name": "Steve",
       "surname": "Ballmer",
       "email": "steve.ball@developers.developers",
-      "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-      "roles": ["user", "demo_user"]
+      "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
     }
   ]
   
