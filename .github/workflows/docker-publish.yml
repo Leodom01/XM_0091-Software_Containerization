@@ -51,32 +51,33 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_TESTING }}
           flavor: |
             latest=true
-      # Keep commented as long as this tier won't have a Dockerfile
-      #- name: Extract Docker metadata for presentation tier
-      #  id: meta_presentation
-      #  uses: docker/metadata-action@v5
-      #  with:
-      #    images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_PRESENTATION_TIER }}
-      #    flavor: |
-      #      latest=true
 
       # Keep commented as long as this tier won't have a Dockerfile
-      #- name: Extract Docker metadata for app tier
-      #  id: meta_app
-      #  uses: docker/metadata-action@v5
-      #  with:
-      #    images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_APP_TIER }}
-      #    flavor: |
-      #      latest=true
+      - name: Extract Docker metadata for presentation tier
+        id: meta_presentation
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_PRESENTATION_TIER }}
+          flavor: |
+            latest=true
 
       # Keep commented as long as this tier won't have a Dockerfile
-      #- name: Extract Docker metadata for db tier
-      #  id: meta_db
-      #  uses: docker/metadata-action@v5
-      #  with:
-      #    images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_DB_TIER }}
-      #    flavor: |
-      #      latest=true
+      - name: Extract Docker metadata for app tier
+        id: meta_app
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_APP_TIER }}
+          flavor: |
+            latest=true
+
+      # Keep commented as long as this tier won't have a Dockerfile
+      - name: Extract Docker metadata for db tier
+        id: meta_db
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_DB_TIER }}
+          flavor: |
+            latest=true
 
       #BuildX build and push images, use the respective tier folder as context, build for multiple platform
       - name: Build and push test Docker image
@@ -93,40 +94,40 @@ jobs:
           platforms: linux/amd64,linux/arm64
 
       # Keep commented as long as this tier won't have a Dockerfile
-      #- name: Build and push presentation Docker image
-      #  id: build-and-push-presentation
-      #  uses: docker/build-push-action@v5
-      #  with:
-      #    context: ./presentationTier
-      #    push: ${{ github.event_name != 'pull_request' }}
-      #    tags: ${{ steps.meta_presentation.outputs.tags }}
-      #    labels: ${{ steps.meta_presentation.outputs.labels }}
-      #    cache-from: type=gha
-      #    cache-to: type=gha,mode=max
-      #    platforms: linux/amd64,linux/arm64
+      - name: Build and push presentation Docker image
+        id: build-and-push-presentation
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta_presentation.outputs.tags }}
+          labels: ${{ steps.meta_presentation.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
 
       # Keep commented as long as this tier won't have a Dockerfile
-      #- name: Build and push app Docker image
-      #  id: build-and-push-app
-      #  uses: docker/build-push-action@v5
-      #  with:
-      #    context: ./appTier
-      #    push: ${{ github.event_name != 'pull_request' }}
-      #    tags: ${{ steps.meta_app.outputs.tags }}
-      #    labels: ${{ steps.meta_app.outputs.labels }}
-      #    cache-from: type=gha
-      #    cache-to: type=gha,mode=max
-      #    platforms: linux/amd64,linux/arm64
+      - name: Build and push app Docker image
+        id: build-and-push-app
+        uses: docker/build-push-action@v5
+        with:
+          context: ./appTier
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta_app.outputs.tags }}
+          labels: ${{ steps.meta_app.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
 
       # Keep commented as long as this tier won't have a Dockerfile
-      #- name: Build and push test Docker image
-      #  id: build-and-push-db
-      #  uses: docker/build-push-action@v5
-      #  with:
-      #    context: ./dbTier
-      #    push: ${{ github.event_name != 'pull_request' }}
-      #    tags: ${{ steps.meta_db.outputs.tags }}
-      #    labels: ${{ steps.meta_db.outputs.labels }}
-      #    cache-from: type=gha
-      #    cache-to: type=gha,mode=max
-      #    platforms: linux/amd64,linux/arm64
+      - name: Build and push test Docker image
+        id: build-and-push-db
+        uses: docker/build-push-action@v5
+        with:
+          context: ./dbTier
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta_db.outputs.tags }}
+          labels: ${{ steps.meta_db.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
