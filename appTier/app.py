@@ -3,6 +3,7 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
+from gevent.pywsgi import WSGIServer
 
 app = Flask(__name__)
 
@@ -59,4 +60,5 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    http_server = WSGIServer(('0.0.0.0', 8000), app)
+    http_server.serve_forever()
