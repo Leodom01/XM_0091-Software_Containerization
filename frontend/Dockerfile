@@ -22,8 +22,11 @@ FROM nginx:1.21-alpine as production-stage
 # Copy the built app from the build stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
+# Copy the Nginx configuration file
+COPY nginx-custom.conf /etc/nginx/nginx.conf
+
 # Expose port 80
-EXPOSE 5000
+EXPOSE 80
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
