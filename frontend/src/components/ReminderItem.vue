@@ -6,12 +6,15 @@
         <p>Created: {{ reminder.creation_date }} by {{ reminder.owner }}</p>
         <p v-if="AuthService.isAdmin">Owner: {{ reminder.owner }}</p>
         <button @click="deleteReminder()">Delete</button>
+        <div v-if="message" class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
     </div>
 </template>
   
 <script>
-import AuthService from '@/services/AuthService';
-import ReminderService from '@/services/ReminderService';
+import AuthService from '@/services/auth.service';
+import ReminderService from '@/services/reminder.service';
 
 export default {
     props: {
@@ -23,6 +26,11 @@ export default {
             ReminderService,
         };
     },
+    data() {
+        return {
+            message: "",
+        };
+    },
     computed: {
         authService() {
             return AuthService;
@@ -30,9 +38,22 @@ export default {
     },
     methods: {
         async deleteReminder() {
-            await ReminderService.deleteReminder(this.reminder.id);
-        },
-    },
+            ReminderService.getReminders().then(
+                () => {
+                    this.message = "";
+                },
+                (error) => {
+                    console.log("here");
+                    this.message =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                }
+            );
+        }
+    }
 };
 </script>
   
