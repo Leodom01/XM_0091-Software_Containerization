@@ -23,7 +23,7 @@ FROM nginx:1.21-alpine as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 # Copy the Nginx configuration file
-COPY nginx-custom.conf /etc/nginx/nginx.conf
+COPY /nginx-custom.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80
 EXPOSE 80
