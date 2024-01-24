@@ -18,6 +18,7 @@ if [ "$need_init" -eq "1" ]; then
     mongosh localhost:27017 --eval 'use appDb' --quiet
     mongoimport --db appDb --collection users --file /app/users.json --jsonArray
     mongoimport --db appDb --collection reminders --file /app/reminders.json --jsonArray
+    mongosh localhost:27017/appDb --eval "db.createUser({user:\"$MONGODB_USER\",pwd:\"$MONGODB_PW\",roles:[\"readWrite\"]})" --quiet
 
     echo "Db initialized!"
 fi

@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: mongo-config
 data:
-  MONGO_INITDB_ROOT_USERNAME: our_admin
+  MONGODB_USER: our_admin

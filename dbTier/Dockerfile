@@ -2,6 +2,8 @@
 
 COPY . /app
 
+EXPOSE 27017
+
 # These two initilize the database with standard data
 # They will need to be replaced with an init container that checks if the persistent valume
 # already contains a initialized db, if yes moves on, else inits it 

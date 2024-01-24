@@ -17,16 +17,16 @@ spec:
       - name: db-tier
         image: ghcr.io/leodom01/xm_0091-software_containerization_db:latest
         env:
-        - name: MONGO_ROOT_USERNAME
+        - name: MONGODB_USER
           valueFrom:
             configMapKeyRef:
               name: mongo-config
-              key: MONGO_ROOT_USERNAME
-        - name: MONGO_ROOT_PASSWORD
+              key: MONGODB_USER
+        - name: MONGODB_PW
           valueFrom:
             secretKeyRef:
               name: mongo-secret
-              key: MONGO_ROOT_PASSWORD
+              key: MONGODB_PW
         # TODO Add env var ROOT_PASSWORD AND ROOT_USERNAME from ConfigMap and Secret
         ports:
         - containerPort: 27017
