@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db-tier
+spec:
+  serviceName: "db-tier-service"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-tier
+  template:
+    metadata:
+      labels:
+        app: db-tier
+    spec:
+      containers:
+      - name: db-tier
+        image: ghcr.io/leodom01/xm_0091-software_containerization_db:latest
+        env:
+        - name: MONGO_ROOT_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-config
+              key: MONGO_ROOT_USERNAME
+        - name: MONGO_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: MONGO_ROOT_PASSWORD
+        # TODO Add env var ROOT_PASSWORD AND ROOT_USERNAME from ConfigMap and Secret
+        ports:
+        - containerPort: 27017
+          name: db-tier
+        volumeMounts:
+        - name: mongodb-data
+          mountPath: /data/db
+  volumeClaimTemplates:
+  - metadata:
+      name: mongodb-data
+    spec:
+      storageClassName: mongodb-hostpath
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 200Mi

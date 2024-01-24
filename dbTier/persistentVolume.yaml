@@ -6,9 +6,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   capacity:
-    storage: 1000Mi
+    storage: 250Mi
   hostPath:
-    path: /appPersistentStorage/db
+    path: /opt/data
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: standard
+  storageClassName: mongodb-hostpath
   volumeMode: Filesystem
