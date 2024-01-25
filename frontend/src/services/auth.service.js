@@ -1,8 +1,13 @@
 import axios from 'axios';
 
-const API_URL = process.env.VUE_APP_API_URL;
-const REGISTER = 'register';
-const LOGIN = 'login';
+let API_URI = process.env.VUE_APP_API_URI;
+if (!API_URI) {
+    API_URI = process.env.VUE_APP_API_URL_DEFAULT;
+}
+const API_URL = 'http://' + process.env.API_URI;
+
+const REGISTER = '/register';
+const LOGIN = '/login';
 
 class AuthService {
     login(user) {

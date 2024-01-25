@@ -1,7 +1,11 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = process.env.VUE_APP_API_URL;
+let API_URI = process.env.VUE_APP_API_URI;
+if (!API_URI) {
+    API_URI = process.env.VUE_APP_API_URL_DEFAULT;
+}
+const API_URL = 'http://' + process.env.API_URI;
 const REMINDERS_ENDPOINT = '/reminders';
 
 class ReminderService {
