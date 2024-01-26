@@ -15,7 +15,13 @@ spec:
         app: presentation
     spec:
       containers:
-      - name: presentation-container
-        image: ghcr.io/leodom01/xm_0091-software_containerization_presentation:latest
-        ports:
-        - containerPort: 80
+        - name: presentation-container
+          image: ghcr.io/leodom01/xm_0091-software_containerization_presentation:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: VUE_APP_API_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: presentation-config
+                  key: VUE_APP_API_URI

@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the rest of the application files
-COPY . .
+COPY . /app
 
 # Build the Vue.js application
 RUN npm run build

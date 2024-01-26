@@ -1,11 +1,17 @@
 import axios from 'axios';
 
-const API_URL = process.env.VUE_APP_API_URL;
-const REGISTER = 'register';
-const LOGIN = 'login';
+let API_URI = process.env.VUE_APP_API_URI;
+if (!API_URI) {
+    API_URI = "app-service.default.svc.cluster.local:8081"
+}
+const API_URL = 'http://' + API_URI;
+
+const REGISTER = '/register';
+const LOGIN = '/login';
 
 class AuthService {
     login(user) {
+
         return axios
             .post(API_URL + REGISTER, {
                 username: user.username,
@@ -26,6 +32,8 @@ class AuthService {
     }
 
     register(user) {
+        console.log("here: ", process.env.VUE_APP_API_URI)
+        console.log("here: ", API_URL)
         return axios.post(API_URL + LOGIN, {
             username: user.username,
             email: user.email,
