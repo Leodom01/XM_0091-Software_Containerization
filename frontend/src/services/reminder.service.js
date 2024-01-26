@@ -5,7 +5,7 @@ let API_URI = process.env.VUE_APP_API_URI;
 if (!API_URI) {
     API_URI = "app-service.default.svc.cluster.local:8081"
 }
-const API_URL = 'http://' + process.env.API_URI;
+const API_URL = 'http://' + API_URI;
 const REMINDERS_ENDPOINT = '/reminders';
 
 class ReminderService {
