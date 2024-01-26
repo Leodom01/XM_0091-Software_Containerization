@@ -2,7 +2,7 @@ import axios from 'axios';
 
 let API_URI = process.env.VUE_APP_API_URI;
 if (!API_URI) {
-    API_URI = process.env.VUE_APP_API_URL_DEFAULT;
+    API_URI = "app-service.default.svc.cluster.local:8081"
 }
 const API_URL = 'http://' + process.env.API_URI;
 
@@ -11,6 +11,7 @@ const LOGIN = '/login';
 
 class AuthService {
     login(user) {
+
         return axios
             .post(API_URL + REGISTER, {
                 username: user.username,
