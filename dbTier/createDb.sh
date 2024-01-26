@@ -1,6 +1,6 @@
 #!/bin/bash 
-microk8s kubectl apply -f persistentVolume.yaml
-microk8s kubectl apply -f dbConfigMap.yaml
-microk8s kubectl apply -f dbSecret.yaml
-microk8s kubectl apply -f dbStatefulSet.yaml
-microk8s kubectl apply -f dbService.yaml
+microk8s kubectl apply -f db-chart/templates/persistentVolume.yaml
+microk8s kubectl apply -f db-chart/templates/dbConfigMap.yaml
+microk8s kubectl apply -f db-chart/templates/dbSecret.yaml
+microk8s kubectl apply -f db-chart/templates/dbStatefulSet.yaml
+microk8s kubectl apply -f db-chart/templates/dbService.yaml

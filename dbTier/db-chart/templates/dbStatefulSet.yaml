@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.general.standardName }}-set
+spec:
+  serviceName: {{ .Values.stateSet.serviceName }}
+  replicas: {{ .Values.stateSet.replicas }}
+  selector:
+    matchLabels:
+      {{ .Values.stateSet.labelKey }}: {{ .Values.stateSet.labelValue }}
+  template:
+    metadata:
+      labels:
+        {{ .Values.stateSet.labelKey }}: {{ .Values.stateSet.labelValue }}
+    spec:
+      containers:
+      - name: {{ .Values.stateSet.containerName }}
+        image: {{ .Values.stateSet.containerImage }}
+        env:
+        - name: {{ .Values.db.userKey }}
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.general.standardName }}-config
+              key: {{ .Values.db.userKey }}
+        - name: {{ .Values.db.pwKey }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.general.standardName }}-secret
+              key: {{ .Values.db.pwKey }}
+        ports:
+        - containerPort: {{ .Values.stateSet.containerPort }}
+          name: {{ .Values.stateSet.containerName }}-port
+        volumeMounts:
+        - name: {{ .Values.general.standardName }}-data
+          mountPath: {{ .Values.stateSet.pvcMounthPath }}
+  # Commenting since the PVC YAML file creates the referred PVC resource
+  #volumeClaimTemplates:
+  #- metadata:
+  #    name: {{ .Values.general.standardName }}-data
+  #  spec:
+  #    storageClassName: {{ .Values.pv.storageClassName }}
+  #    accessModes: {{ .Values.pv.accessModes }}
+  #    resources:
+  #      requests:
+  #        storage: {{ .Values.pv.storageClassName }}

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.general.standardName }}-svc
+  labels:
+    {{ .Values.stateSet.labelKey }}: {{ .Values.stateSet.labelValue }}
+spec:
+  type: {{ .Values.svc.ClusterIP }}
+  ports:
+    - port: {{ .Values.svc.exposedPort }}
+      targetPort: {{ .Values.stateSet.containerPort }}
+  selector:
+    {{ .Values.stateSet.labelKey }}: {{ .Values.stateSet.labelValue }}
