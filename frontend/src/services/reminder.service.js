@@ -3,13 +3,12 @@ import authHeader from './auth-header';
 
 let API_URI = process.env.VUE_APP_API_URI;
 if (!API_URI) {
-    API_URI = process.env.VUE_APP_API_URL_DEFAULT;
+    API_URI = "app-service.default.svc.cluster.local:8081"
 }
 const API_URL = 'http://' + process.env.API_URI;
 const REMINDERS_ENDPOINT = '/reminders';
 
 class ReminderService {
-    // throw errors if the response is not 200
     getReminders() {
         return axios.get(API_URL + REMINDERS_ENDPOINT, { headers: authHeader() });
 
