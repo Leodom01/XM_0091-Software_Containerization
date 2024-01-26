@@ -32,6 +32,8 @@ class AuthService {
     }
 
     register(user) {
+        console.log("here: ", process.env.VUE_APP_API_URI)
+        console.log("here: ", API_URL)
         return axios.post(API_URL + LOGIN, {
             username: user.username,
             email: user.email,
