@@ -1,0 +1,18 @@
+general:
+  standardName: flask
+
+deployment:
+  label:
+    key: app
+    value: app-api
+  replicas: 3
+  container: 
+    name: app-container
+    image: ghcr.io/leodom01/xm_0091-software_containerization_app:latest
+    port: 8000
+
+svc:
+  type: ClusterIP
+  protocol: TCP
+  containerPort: 8000
+  exposedPort: 5000
