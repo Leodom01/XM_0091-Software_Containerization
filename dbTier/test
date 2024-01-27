@@ -1,0 +1,51 @@
+# Source: db-chart/templates/dbStatefulSet.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo-set
+spec:
+  serviceName: db-tier
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-tier
+  template:
+    metadata:
+      labels:
+        app: db-tier
+      # Need this to reload pods when some resources change
+      # TODO Delete this when the template works consistently
+      annotations:
+        rollme: PYscErllbaIJMBoJQXAyHKwWhV2ou3j2SCIHKXU1fvsCByArgHdQCoHTAx4kHGiCRPILAzHSjqMNyrkdkOdIs0DAz3Gko5baXolW
+    spec:
+      containers:
+      - name: mongo
+        image: ghcr.io/leodom01/xm_0091-software_containerization_db:latest
+        env:
+        - name: MONGODB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-config
+              key: MONGODB_USER
+        - name: MONGODB_PW
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: MONGODB_PW
+        ports:
+        - containerPort: 27017
+          name: mongo-port
+        volumeMounts:
+        - name: mongo-data
+          mountPath: /data/db
+  # Commenting since the PVC YAML file creates the referred PVC resource
+  volumeClaimTemplates:
+  - metadata:
+      name: mongo-data
+    spec:
+      storageClassName: mongodb-hostpath
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 250M

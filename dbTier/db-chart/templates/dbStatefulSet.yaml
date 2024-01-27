@@ -12,6 +12,10 @@ spec:
     metadata:
       labels:
         {{ .Values.stateSet.labelKey }}: {{ .Values.stateSet.labelValue }}
+      # Need this to reload pods when some resources change 
+      # TODO Delete this when the template works consistently
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
     spec:
       containers:
       - name: {{ .Values.stateSet.containerName }}
@@ -32,14 +36,15 @@ spec:
           name: {{ .Values.stateSet.containerName }}-port
         volumeMounts:
         - name: {{ .Values.general.standardName }}-data
-          mountPath: {{ .Values.stateSet.pvcMounthPath }}
+          mountPath: {{ .Values.stateSet.pvcMountPath }}
   # Commenting since the PVC YAML file creates the referred PVC resource
-  #volumeClaimTemplates:
-  #- metadata:
-  #    name: {{ .Values.general.standardName }}-data
-  #  spec:
-  #    storageClassName: {{ .Values.pv.storageClassName }}
-  #    accessModes: {{ .Values.pv.accessModes }}
-  #    resources:
-  #      requests:
-  #        storage: {{ .Values.pv.storageClassName }}
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Values.general.standardName }}-data
+    spec:
+      storageClassName: {{ .Values.pvc.storageClassName }}
+      accessModes: 
+      - {{ .Values.pvc.accessModes }}
+      resources:
+        requests:
+          storage: {{ .Values.pvc.storage }}

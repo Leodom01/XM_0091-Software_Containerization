@@ -8,9 +8,9 @@ db:
   pwKey: MONGODB_PW
   pw: cGFzc3dvcmQ=
 
-pv:
+pvc:
   accessModes: ReadWriteOnce
-  storage: 250Mi
+  storage: 250M
   hostPath: /opt/data
   reclaimPolicy: Retain
   storageClassName: mongodb-hostpath
