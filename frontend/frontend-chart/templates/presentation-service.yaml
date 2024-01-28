@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.general.standardName }}-svc
+spec:
+  type: {{ .Values.svc.type }}
+  ports:
+    - protocol: {{ .Values.svc.port.protocol }}
+      nodePort: {{ .Values.svc.port.nodePort }}
+      port: {{ .Values.svc.port.clusterPort }}
+      targetPort: {{ .Values.svc.port.containerPort }}
+  selector:
+    {{ .Values.deployment.label.key }}: {{ .Values.deployment.label.value }}

@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: presentation-config
-data:
-  VUE_APP_API_URI: app-service.default.svc.cluster.local:8081

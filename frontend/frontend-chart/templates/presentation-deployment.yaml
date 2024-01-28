@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.general.standardName }}-deployment
+  labels:
+    {{ .Values.deployment.label.key }}: {{ .Values.deployment.label.value }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      {{ .Values.deployment.label.key }}: {{ .Values.deployment.label.value }}
+  template:
+    metadata:
+      labels:
+        {{ .Values.deployment.label.key }}: {{ .Values.deployment.label.value }}
+    spec:
+      containers:
+        - name: {{ .Values.deployment.container.name }}
+          image: {{ .Values.deployment.container.image }}
+          ports:
+            - containerPort: {{ .Values.deployment.container.containerPort }}
+          env:
+            - name: {{ .Values.deployment.env.varName }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.deployment.env.configMapRefName }}
+                  key: {{ .Values.deployment.env.varName }}
