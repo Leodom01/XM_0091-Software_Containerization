@@ -32,7 +32,7 @@ dictConfig(
 # TODO: Replace with our MongoDB URI
 app.config[
     "MONGO_URI"
-] = "mongodb://db-svc.default.svc.cluster.local:30003"  # URI from mongodb container
+] = "mongodb://our_user:password@mongo-svc.default.svc.cluster.local:30003/appDb"  # URI from mongodb container
 mongo = PyMongo(app)
 
 # JWT Config with random key
