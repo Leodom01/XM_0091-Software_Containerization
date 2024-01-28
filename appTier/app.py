@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, session
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, set_access_cookies
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
@@ -32,12 +32,13 @@ dictConfig(
 # TODO: Replace with our MongoDB URI
 app.config[
     "MONGO_URI"
-] = "mongodb://db-svc.default.svc.cluster.local:30003"  # URI from mongodb container
+] = "mongodb://our_user:password@mongo-svc.default.svc.cluster.local:30003/appDb"  # URI from mongodb container
 mongo = PyMongo(app)
 
 # JWT Config with random key
 app.config["JWT_SECRET_KEY"] = secrets.token_urlsafe(16)
 app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
+app.config['JWT_COOKIE_CSRF_PROTECT'] = False  # To reduce complexity
 jwt = JWTManager(app)
 
 
@@ -58,8 +59,9 @@ def login():
     app.logger.info("user login")
     if user and check_password_hash(user["password"], request.json.get("password")):
         access_token = create_access_token(identity=user["username"])
-        session["jwt"] = access_token
-        return jsonify({"message": "login successful"}), 200
+        resp = jsonify({"message": "login successful"})
+        set_access_cookies(resp, access_token)
+        return resp, 200
     return jsonify({"message": "Invalid credentials"}), 401
 
 
@@ -87,5 +89,6 @@ def index():
 
 
 if __name__ == "__main__":
+    app.secret_key = secrets.token_urlsafe(16)
     http_server = WSGIServer(("0.0.0.0", 8000), app)
     http_server.serve_forever()
