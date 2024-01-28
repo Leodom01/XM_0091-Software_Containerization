@@ -10,7 +10,6 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME_TESTING: "Leodom01/XM_0091-Software_Containerization_testing"
   IMAGE_NAME_PRESENTATION_TIER: "Leodom01/XM_0091-Software_Containerization_presentation"
   IMAGE_NAME_APP_TIER: "Leodom01/XM_0091-Software_Containerization_app"
   IMAGE_NAME_DB_TIER: "Leodom01/XM_0091-Software_Containerization_db"
@@ -43,15 +42,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Generate images names based on the registry and the image and the tier they refer to
-      - name: Extract Docker metadata for testing tier
-        id: meta_testing
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_TESTING }}
-          flavor: |
-            latest=true
-
       # Keep commented as long as this tier won't have a Dockerfile
       - name: Extract Docker metadata for presentation tier
         id: meta_presentation
@@ -78,20 +68,6 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_DB_TIER }}
           flavor: |
             latest=true
-
-      #BuildX build and push images, use the respective tier folder as context, build for multiple platform
-      - name: Build and push test Docker image
-        id: build-and-push-test
-        uses: docker/build-push-action@v5
-        with:
-          context: ./testTier
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta_testing.outputs.tags }}
-          labels: ${{ steps.meta_testing.outputs.labels }}
-          # Chaces intermediate layers to GitHub Actions Cache, all layers are cached thanks to mode=max
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          platforms: linux/amd64,linux/arm64
 
       # Keep commented as long as this tier won't have a Dockerfile
       - name: Build and push presentation Docker image
