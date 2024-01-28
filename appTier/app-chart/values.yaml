@@ -1,11 +1,11 @@
 general:
-  standardName: flask
+  standardName: app
 
 deployment:
   label:
     key: app
     value: app-api
-  replicas: 3
+  replicas: 1
   container: 
     name: app-container
     image: ghcr.io/leodom01/xm_0091-software_containerization_app:latest
@@ -15,4 +15,18 @@ svc:
   type: ClusterIP
   protocol: TCP
   containerPort: 8000
-  exposedPort: 5000
+  exposedPort: 8081
+
+configMap:
+  - key: MONGODB_USER
+    value: our_user
+  - key: MONGODB_HOST
+    value: mongo-svc.default.svc.cluster.local
+  - key: MONGODB_PORT
+    value: 30003
+  - key: MONGODB_DB
+    value: appDb
+
+secret: 
+  key: MONGODB_PW
+  value: cGFzc3dvcmQ=

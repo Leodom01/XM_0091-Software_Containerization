@@ -19,3 +19,16 @@ spec:
         image: {{ .Values.deployment.container.image }}
         ports:
         - containerPort: {{ .Values.deployment.container.port }}
+        env:
+        {{- range $item := .Values.configMap}}
+        - name: {{ $item.key }}
+          valueFrom:
+            configMapKeyRef:
+              name: {{ $.Values.general.standardName }}-config
+              key: {{ $item.key }}
+        {{- end}}
+        - name: {{ .Values.secret.key }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.general.standardName }}-secret
+              key: {{ .Values.secret.key }}

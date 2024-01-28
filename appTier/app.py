@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify, request, session
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, set_access_cookies
 from flask_pymongo import PyMongo
@@ -32,7 +33,7 @@ dictConfig(
 # TODO: Replace with our MongoDB URI
 app.config[
     "MONGO_URI"
-] = "mongodb://our_user:password@mongo-svc.default.svc.cluster.local:30003/appDb"  # URI from mongodb container
+] = "mongodb://"+os.environ['MONGODB_USER']+":"+os.environ['MONGODB_PW']+"@"+os.environ['MONGODB_HOST']+":"+os.environ['MONGODB_PORT']+"/"+os.environ['MONGODB_DB']  # URI from mongodb container
 mongo = PyMongo(app)
 
 # JWT Config with random key
