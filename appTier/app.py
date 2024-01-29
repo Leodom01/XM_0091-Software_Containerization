@@ -1,13 +1,44 @@
 import os
 from flask import Flask, jsonify, request, session
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, set_access_cookies
+from flask_jwt_extended import (
+    JWTManager,
+    create_access_token,
+    jwt_required,
+    set_access_cookies,
+)
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
 from gevent.pywsgi import WSGIServer
 from logging.config import dictConfig
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+
+
+class CorsMiddleware:
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+        if environ["REQUEST_METHOD"] == "OPTIONS":
+            response = make_response()
+            response.headers[
+                "Access-Control-Allow-Origin"
+            ] = "*"  # Allow requests from any origin
+            response.headers[
+                "Access-Control-Allow-Methods"
+            ] = "GET, POST, PUT, DELETE, OPTIONS"
+            response.headers[
+                "Access-Control-Allow-Headers"
+            ] = "Content-Type, Authorization"
+            return response(environ, start_response)
+        else:
+            return self.app(environ, start_response)
+
+
+app.wsgi_app = CorsMiddleware(app.wsgi_app)
 
 # Logging Config
 dictConfig(
@@ -31,15 +62,25 @@ dictConfig(
 
 # MongoDB Config
 # TODO: Replace with our MongoDB URI
-app.config[
-    "MONGO_URI"
-] = "mongodb://"+os.environ['MONGODB_USER']+":"+os.environ['MONGODB_PW']+"@"+os.environ['MONGODB_HOST']+":"+os.environ['MONGODB_PORT']+"/"+os.environ['MONGODB_DB']  # URI from mongodb container
+app.config["MONGO_URI"] = (
+    "mongodb://"
+    + os.environ["MONGODB_USER"]
+    + ":"
+    + os.environ["MONGODB_PW"]
+    + "@"
+    + os.environ["MONGODB_HOST"]
+    + ":"
+    + os.environ["MONGODB_PORT"]
+    + "/"
+    + os.environ["MONGODB_DB"]
+)  # URI from mongodb container
 mongo = PyMongo(app)
 
 # JWT Config with random key
 app.config["JWT_SECRET_KEY"] = secrets.token_urlsafe(16)
 app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
-app.config['JWT_COOKIE_CSRF_PROTECT'] = False  # To reduce complexity
+# user header, authorization header, bearer token
+app.config["JWT_COOKIE_CSRF_PROTECT"] = False  # To reduce complexity
 jwt = JWTManager(app)
 
 
