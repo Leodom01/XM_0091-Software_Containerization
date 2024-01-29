@@ -12,7 +12,7 @@ deployment:
     port: 8000
 
 svc:
-  type: ClusterIP
+  type: NodePort
   protocol: TCP
   containerPort: 8000
   exposedPort: 8081
