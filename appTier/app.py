@@ -56,8 +56,8 @@ def login():
     app.logger.info("user login")
     if user and check_password_hash(user["password"], request.json.get("password")):
         access_token = create_access_token(identity=user["username"])
-        resp = jsonify({"message": "login successful"})
-        set_access_cookies(resp, access_token)
+        resp = jsonify(access_token=access_token)
+        # set_access_cookies(resp, access_token)
         return resp, 200
     return jsonify({"message": "Invalid credentials"}), 401
 
