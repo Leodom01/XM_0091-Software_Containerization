@@ -1,6 +1,11 @@
 import os
 from flask import Flask, jsonify, request, session
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, set_access_cookies
+from flask_jwt_extended import (
+    JWTManager,
+    create_access_token,
+    jwt_required,
+    set_access_cookies,
+)
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
@@ -9,37 +14,28 @@ from logging.config import dictConfig
 
 app = Flask(__name__)
 
-# Logging Config
-dictConfig(
-    {
-        "version": 1,
-        "formatters": {
-            "default": {
-                "format": "[%(asctime)s] %(levelname)s in %(module)s: %(message)s",
-            }
-        },
-        "handlers": {
-            "wsgi": {
-                "class": "logging.StreamHandler",
-                "stream": "ext://flask.logging.wsgi_errors_stream",
-                "formatter": "default",
-            }
-        },
-        "root": {"level": "INFO", "handlers": ["wsgi"]},
-    }
-)
 
 # MongoDB Config
 # TODO: Replace with our MongoDB URI
-app.config[
-    "MONGO_URI"
-] = "mongodb://"+os.environ['MONGODB_USER']+":"+os.environ['MONGODB_PW']+"@"+os.environ['MONGODB_HOST']+":"+os.environ['MONGODB_PORT']+"/"+os.environ['MONGODB_DB']  # URI from mongodb container
+app.config["MONGO_URI"] = (
+    "mongodb://"
+    + os.environ["MONGODB_USER"]
+    + ":"
+    + os.environ["MONGODB_PW"]
+    + "@"
+    + os.environ["MONGODB_HOST"]
+    + ":"
+    + os.environ["MONGODB_PORT"]
+    + "/"
+    + os.environ["MONGODB_DB"]
+)  # URI from mongodb container
 mongo = PyMongo(app)
 
 # JWT Config with random key
 app.config["JWT_SECRET_KEY"] = secrets.token_urlsafe(16)
 app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
-app.config['JWT_COOKIE_CSRF_PROTECT'] = False  # To reduce complexity
+# user header, authorization header, bearer token
+app.config["JWT_COOKIE_CSRF_PROTECT"] = False  # To reduce complexity
 jwt = JWTManager(app)
 
 
