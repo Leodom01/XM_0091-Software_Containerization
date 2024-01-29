@@ -6,6 +6,7 @@ spec:
   type: {{ .Values.svc.type }}
   ports:
     - protocol: {{ .Values.svc.protocol }}
+      nodePort: {{ .Values.svc.nodePort }}
       port: {{ .Values.svc.exposedPort }}
       targetPort: {{ .Values.svc.containerPort }}
   selector:

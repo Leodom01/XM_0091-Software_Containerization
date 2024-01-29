@@ -6,14 +6,15 @@ deployment:
     key: app
     value: app-api
   replicas: 1
-  container: 
+  container:
     name: app-container
     image: ghcr.io/leodom01/xm_0091-software_containerization_app:latest
     port: 8000
 
 svc:
-  type: ClusterIP
+  type: NodePort
   protocol: TCP
+  nodePort: 30001
   containerPort: 8000
   exposedPort: 8081
 
@@ -27,6 +28,6 @@ configMap:
   - key: MONGODB_DB
     value: appDb
 
-secret: 
+secret:
   key: MONGODB_PW
   value: cGFzc3dvcmQ=
