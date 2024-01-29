@@ -3,9 +3,9 @@
         <div class="card card-container">
             <Form @submit="handleLogin" :validation-schema="schema">
                 <div class="form-group">
-                    <label for="email">E-Mail</label>
-                    <Field name="email" type="email" class="form-control" />
-                    <ErrorMessage name="email" class="error-feedback" />
+                    <label for="username">Username</label>
+                    <Field name="username" type="text" class="form-control" />
+                    <ErrorMessage name="username" class="error-feedback" />
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
@@ -43,7 +43,7 @@ export default {
     },
     data() {
         const schema = yup.object().shape({
-            email: yup.string().required("email is required!"),
+            username: yup.string().required("Username is required!"),
             password: yup.string().required("Password is required!"),
         });
 
