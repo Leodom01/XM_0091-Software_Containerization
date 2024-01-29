@@ -11,54 +11,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
 from gevent.pywsgi import WSGIServer
 from logging.config import dictConfig
-from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
 
-
-class CorsMiddleware:
-    def __init__(self, app):
-        self.app = app
-
-    def __call__(self, environ, start_response):
-        if environ["REQUEST_METHOD"] == "OPTIONS":
-            response = make_response()
-            response.headers[
-                "Access-Control-Allow-Origin"
-            ] = "*"  # Allow requests from any origin
-            response.headers[
-                "Access-Control-Allow-Methods"
-            ] = "GET, POST, PUT, DELETE, OPTIONS"
-            response.headers[
-                "Access-Control-Allow-Headers"
-            ] = "Content-Type, Authorization"
-            return response(environ, start_response)
-        else:
-            return self.app(environ, start_response)
-
-
-app.wsgi_app = CorsMiddleware(app.wsgi_app)
-
-# Logging Config
-dictConfig(
-    {
-        "version": 1,
-        "formatters": {
-            "default": {
-                "format": "[%(asctime)s] %(levelname)s in %(module)s: %(message)s",
-            }
-        },
-        "handlers": {
-            "wsgi": {
-                "class": "logging.StreamHandler",
-                "stream": "ext://flask.logging.wsgi_errors_stream",
-                "formatter": "default",
-            }
-        },
-        "root": {"level": "INFO", "handlers": ["wsgi"]},
-    }
-)
 
 # MongoDB Config
 # TODO: Replace with our MongoDB URI
