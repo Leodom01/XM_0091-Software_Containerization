@@ -33,7 +33,7 @@ mongo = PyMongo(app)
 
 # JWT Config with random key
 app.config["JWT_SECRET_KEY"] = secrets.token_urlsafe(16)
-app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
+app.config["JWT_TOKEN_LOCATION"] = ["cookies", "headers"]
 # user header, authorization header, bearer token
 app.config["JWT_COOKIE_CSRF_PROTECT"] = False  # To reduce complexity
 jwt = JWTManager(app)
