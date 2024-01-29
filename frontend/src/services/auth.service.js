@@ -2,7 +2,7 @@ import axios from 'axios';
 
 let API_URI = process.env.VUE_APP_API_URI;
 if (!API_URI) {
-    API_URI = "app-service.default.svc.cluster.local:8081"
+    API_URI = "app-svc.default.svc.cluster.local:8081"
 }
 const API_URL = '//' + API_URI;
 
@@ -13,7 +13,7 @@ class AuthService {
     login(user) {
 
         return axios
-            .post(API_URL + REGISTER, {
+            .post(API_URL + LOGIN, {
                 username: user.username,
                 password: user.password
             })
@@ -34,7 +34,7 @@ class AuthService {
     register(user) {
         console.log("here: ", process.env.VUE_APP_API_URI)
         console.log("here: ", API_URL)
-        return axios.post(API_URL + LOGIN, {
+        return axios.post(API_URL + REGISTER, {
             username: user.username,
             email: user.email,
             password: user.password

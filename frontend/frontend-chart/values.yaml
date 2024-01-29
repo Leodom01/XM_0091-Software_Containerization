@@ -1,17 +1,17 @@
 general:
   standardName: presentation
 
-configMap: 
+configMap:
   vueKey: VUE_APP_API_URI
-  vueHost: app-service.default.svc.cluster.local
+  vueHost: app-svc.default.svc.cluster.local
   vuePort: 8081
 
-deployment: 
-  label: 
+deployment:
+  label:
     key: app
-    value: presentation 
+    value: presentation
   replicas: 1
-  container: 
+  container:
     name: presentation-container
     image: ghcr.io/leodom01/xm_0091-software_containerization_presentation:latest
     containerPort: 80
@@ -26,4 +26,3 @@ svc:
     containerPort: 80
     nodePort: 30002
     clusterPort: 8091
-
