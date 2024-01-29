@@ -3,7 +3,7 @@ general:
 
 configMap:
   vueKey: VUE_APP_API_URI
-  vueHost: app-svc.default.svc.cluster.local
+  vueHost: app-svc.default.svc.cluster.local.
   vuePort: 8081
 
 deployment:
