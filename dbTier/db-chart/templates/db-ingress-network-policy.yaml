@@ -10,7 +10,7 @@ spec:
   - from:
     - podSelector:
         matchLabels:
-
+          app: app-api
     - podSelector:
         matchLabels:
           app: presentation
