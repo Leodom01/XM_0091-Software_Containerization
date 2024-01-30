@@ -2,8 +2,9 @@ general:
   standardName: presentation
 
 configMap:
-  vueKey: VUE_APP_API_URI
-  vueHost: app-svc.default.svc.cluster.local
+  vueHostKey: VUE_APP_API_URI
+  vueHost: app-svc
+  vuePortKey: VUE_APP_API_PORT
   vuePort: 8081
 
 deployment:
@@ -16,7 +17,8 @@ deployment:
     image: ghcr.io/leodom01/xm_0091-software_containerization_presentation:latest
     containerPort: 80
   env:
-    varName: VUE_APP_API_URI
+    varUriName: VUE_APP_API_URI
+    varPortName: VUE_APP_API_PORT
     configMapRefName: presentation-config
 
 svc:

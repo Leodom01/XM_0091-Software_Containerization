@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.general.standardName }}-config
 data:
-  {{ .Values.configMap.vueKey }}: {{ .Values.configMap.vueHost }}:{{ .Values.configMap.vuePort }}
+  {{ .Values.configMap.vueHostKey }}: {{ .Values.configMap.vueHost }}:{{ .Values.configMap.vueHost }}
+  {{ .Values.configMap.vuePortKey }}: {{ .Values.configMap.vueHost }}:{{ .Values.configMap.vuePort }}
