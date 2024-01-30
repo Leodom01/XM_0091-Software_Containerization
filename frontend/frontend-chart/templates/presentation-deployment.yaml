@@ -20,8 +20,13 @@ spec:
           ports:
             - containerPort: {{ .Values.deployment.container.containerPort }}
           env:
-            - name: {{ .Values.deployment.env.varName }}
+            - name: {{ .Values.deployment.env.varUriName }}
               valueFrom:
                 configMapKeyRef:
                   name: {{ .Values.deployment.env.configMapRefName }}
-                  key: {{ .Values.deployment.env.varName }}
+                  key: {{ .Values.deployment.env.varUriName }}
+            - name: {{ .Values.deployment.env.varPortName }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.deployment.env.configMapRefName }}
+                  key: {{ .Values.deployment.env.varPortName }}
