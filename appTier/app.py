@@ -39,7 +39,7 @@ app.config["JWT_COOKIE_CSRF_PROTECT"] = False  # To reduce complexity
 jwt = JWTManager(app)
 
 
-# User Authentication Routes
+# User Authentication Routes NOT USED
 @app.route("/register", methods=["POST"])
 def register():
     app.logger.info("Registering user")
@@ -64,7 +64,6 @@ def login():
 
 # Reminder CRUD Operations
 @app.route("/reminders", methods=["GET"])
-@jwt_required()
 def get_reminders():
     app.logger.info("User request reminders")
     reminders = mongo.db.reminders.find()
@@ -72,7 +71,6 @@ def get_reminders():
 
 
 @app.route("/reminders", methods=["POST"])
-@jwt_required()
 def add_reminder():
     app.logger.info("user added reminder")
     reminder = request.json
