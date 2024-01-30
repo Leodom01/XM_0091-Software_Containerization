@@ -1,21 +1,22 @@
-<!-- components/RemindersList.vue -->
 <template>
     <div>
         <div v-if="message" class="alert alert-danger" role="alert">
             {{ message }}
         </div>
-        <div v-else-if="reminders.length === 0">
+        <div v-else-if="reminders.length === 0" id="message">
             <p>No reminders yet.</p>
         </div>
         <div v-else>
-            <ReminderItem v-for="reminder in reminders" :key="reminder.id" :reminder="reminder" />
+            <div v-for="reminder in reminders" :key="reminder.id" id="item">
+                <h3>{{ reminder.title }}</h3>
+                <p>{{ reminder.body }}</p>
+            </div>
         </div>
     </div>
 </template>
   
 <script>
 import ReminderService from '@/services/reminder.service';
-import ReminderItem from './ReminderItem.vue';
 
 export default {
     data() {
@@ -60,17 +61,41 @@ export default {
                         error.toString();
                 }
             );
-
-
-
         },
+        // async deleteReminder(reminderId) {
+        //     ReminderService.deleteReminder(reminderId).then(
+        //         () => {
+        //             this.message = "";
+        //             this.fetchReminders();
+        //         },
+        //         (error) => {
+        //             this.message =
+        //                 (error.response &&
+        //                     error.response.data &&
+        //                     error.response.data.message) ||
+        //                 error.message ||
+        //                 error.toString();
+        //         }
+        //     );
+        // }
     },
     created() {
         this.fetchReminders();
     },
     components: {
-        ReminderItem,
     },
 };
 </script>
   
+<style>
+#item {
+    border: 1px solid black;
+    margin: 10px;
+    padding: 10px;
+}
+
+#message {
+    margin: 10px;
+    padding: 10px;
+}
+</style>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import authHeader from './auth-header';
+// import authHeader from './auth-header';
 
 // let API_URI = process.env.VUE_APP_API_URI;
 // if (!API_URI) {
@@ -11,18 +11,18 @@ const REMINDERS_ENDPOINT = '/reminders';
 
 class ReminderService {
     getReminders() {
-        return axios.get(API_URL + REMINDERS_ENDPOINT, { headers: authHeader() });
+        return axios.get(API_URL + REMINDERS_ENDPOINT);
 
     }
 
     createReminder(reminder) {
-        return axios.post(API_URL + REMINDERS_ENDPOINT, reminder, { headers: authHeader() });
-
+        console.log(reminder);
+        return axios.post(API_URL + REMINDERS_ENDPOINT, reminder);
     }
 
-    deleteReminder(reminderId) {
-        return axios.delete(API_URL + REMINDERS_ENDPOINT + '/' + reminderId, { headers: authHeader() });
-    }
+    // deleteReminder(reminderId) {
+    //     return axios.delete(API_URL + REMINDERS_ENDPOINT + '/' + reminderId, { headers: authHeader() });
+    // }
 }
 
 export default new ReminderService();

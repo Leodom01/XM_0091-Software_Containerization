@@ -4,7 +4,6 @@
         <h3>{{ reminder.title }}</h3>
         <p>{{ reminder.body }}</p>
         <p>Created: {{ reminder.creation_date }} by {{ reminder.owner }}</p>
-        <p v-if="AuthService.isAdmin">Owner: {{ reminder.owner }}</p>
         <button @click="deleteReminder()">Delete</button>
         <div v-if="message" class="alert alert-danger" role="alert">
             {{ message }}
@@ -13,7 +12,6 @@
 </template>
   
 <script>
-import AuthService from '@/services/auth.service';
 import ReminderService from '@/services/reminder.service';
 
 export default {
@@ -22,7 +20,6 @@ export default {
     },
     setup() {
         return {
-            AuthService,
             ReminderService,
         };
     },
@@ -30,11 +27,6 @@ export default {
         return {
             message: "",
         };
-    },
-    computed: {
-        authService() {
-            return AuthService;
-        },
     },
     methods: {
         async deleteReminder() {
@@ -52,6 +44,7 @@ export default {
                         error.toString();
                 }
             );
+            this.$router.go();
         }
     }
 };
