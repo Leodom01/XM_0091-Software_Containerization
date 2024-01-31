@@ -15,13 +15,13 @@ type: application
 dependencies:
 - name: db-chart
   version: "0.1"
-  repository: "file://../dbTier/db-chart"
+  repository: "file://charts/db-chart"
 - name: app-chart
   version: "0.1"
-  repository: "file://../appTier/app-chart"
+  repository: "file://charts/app-chart"
 - name: frontend-chart
   version: "0.1"
-  repository: "file://../frontend/frontend-chart"
+  repository: "file://charts/frontend-chart"
 
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
