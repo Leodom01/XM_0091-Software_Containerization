@@ -11,23 +11,25 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
 from gevent.pywsgi import WSGIServer
 from logging.config import dictConfig
+from bson import json_util
 
 app = Flask(__name__)
 
-
 # MongoDB Config
 # TODO: Replace with our MongoDB URI
+
+
 app.config["MONGO_URI"] = (
-    "mongodb://"
-    + os.environ["MONGODB_USER"]
-    + ":"
-    + os.environ["MONGODB_PW"]
-    + "@"
-    + os.environ["MONGODB_HOST"]
-    + ":"
-    + os.environ["MONGODB_PORT"]
-    + "/"
-    + os.environ["MONGODB_DB"]
+        "mongodb://"
+        + os.environ["MONGODB_USER"]
+        + ":"
+        + os.environ["MONGODB_PW"]
+        + "@"
+        + os.environ["MONGODB_HOST"]
+        + ":"
+        + os.environ["MONGODB_PORT"]
+        + "/"
+        + os.environ["MONGODB_DB"]
 )  # URI from mongodb container
 mongo = PyMongo(app)
 
@@ -67,7 +69,10 @@ def login():
 def get_reminders():
     app.logger.info("User request reminders")
     reminders = mongo.db.reminders.find()
-    return jsonify([reminder for reminder in reminders])
+    resp = []
+    for reminder in reminders:
+        resp.append(json_util.dumps(reminder))
+    return jsonify({"reminders": resp})
 
 
 @app.route("/reminders", methods=["POST"])
@@ -75,7 +80,7 @@ def add_reminder():
     app.logger.info("user added reminder")
     reminder = request.json
     mongo.db.reminders.insert_one(reminder)
-    return jsonify(reminder), 201
+    return reminder, 201
 
 
 @app.route("/", methods=["GET"])
