@@ -1,7 +1,7 @@
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: presentation-api-allow
+  name: presentation-allow
 spec:
   podSelector:
     matchLabels:
@@ -14,11 +14,4 @@ spec:
     - podSelector:
         matchLabels:
           app: db-tier
-  egress:
-  - to:
-    - podSelector:
-        matchLabels:
-            app: app-api
-    - podSelector:
-        matchLabels:
-            app: db-tier
+

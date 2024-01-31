@@ -17,6 +17,7 @@ app = Flask(__name__)
 
 # MongoDB Config
 # TODO: Replace with our MongoDB URI
+
 app.config["MONGO_URI"] = (
     "mongodb://"
     + os.environ["MONGODB_USER"]
@@ -30,6 +31,7 @@ app.config["MONGO_URI"] = (
     + os.environ["MONGODB_DB"]
 )  # URI from mongodb container
 mongo = PyMongo(app)
+
 
 # JWT Config with random key
 app.config["JWT_SECRET_KEY"] = secrets.token_urlsafe(16)
@@ -75,7 +77,7 @@ def add_reminder():
     app.logger.info("user added reminder")
     reminder = request.json
     mongo.db.reminders.insert_one(reminder)
-    return jsonify(reminder), 201
+    return reminder, 201
 
 
 @app.route("/", methods=["GET"])

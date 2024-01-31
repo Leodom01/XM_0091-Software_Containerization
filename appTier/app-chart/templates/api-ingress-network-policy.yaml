@@ -6,9 +6,6 @@ spec:
   podSelector:
     matchLabels:
       app: app-api
-  policyTypes:
-  - Ingress
-  - Egress
   ingress:
   - from:
     - podSelector:
@@ -17,11 +14,8 @@ spec:
     - podSelector:
         matchLabels:
           app: db-tier
-  egress:
-  - to:
-    - podSelector:
-        matchLabels:
-            app: presentation
-    - podSelector:
-        matchLabels:
-            app: db-tier
+    ports:
+    - protocol: TCP
+      port: 8081
+
+

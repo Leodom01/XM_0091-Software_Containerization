@@ -14,11 +14,4 @@ spec:
     - podSelector:
         matchLabels:
           app: presentation
-  egress:
-  - to:
-    - podSelector:
-        matchLabels:
-            app: presentation
-    - podSelector:
-        matchLabels:
-            app: app-api
+
