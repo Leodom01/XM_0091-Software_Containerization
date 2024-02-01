@@ -16,7 +16,7 @@ spec:
             path: /
             backend:
               service:
-                name: app-service
+                name: presentation-svc
                 port:
                   number: 80
   tls:
