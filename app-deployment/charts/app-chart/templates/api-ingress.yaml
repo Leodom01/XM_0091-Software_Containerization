@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: backend-ingress
+  name: {{ .Values.general.standardName }}-ingress
   annotations:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
@@ -15,6 +15,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app-svc
+                name: {{ .Values.general.standardName }}-svc
                 port:
-                  number: 8081
+                  number: {{ .Values.svc.exposedPort }}

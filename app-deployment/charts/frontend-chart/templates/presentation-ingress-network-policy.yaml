@@ -1,13 +1,13 @@
 #kind: NetworkPolicy
 #apiVersion: networking.k8s.io/v1
 #metadata:
-#  name: presentation-api-allow
+#  name: {{ .Values.general.standardName }}-api-allow
 #spec:
 #  podSelector:
 #    matchLabels:
-#      app: presentation
+#      {{ .Values.deployment.label.key }}: {{ .Values.deployment.label.value }}
 #  ingress:
 #  - from:
 #    - podSelector:
 #        matchLabels:
-#          app: app-api
+#          app: {{ .Values.stackPods.appTierName }}

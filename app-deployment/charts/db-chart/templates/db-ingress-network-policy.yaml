@@ -1,13 +1,13 @@
 #kind: NetworkPolicy
 #apiVersion: networking.k8s.io/v1
 #metadata:
-#  name: db-allow
+#  name: {{ .Values.general.standardName }}-allow
 #spec:
 #  podSelector:
 #    matchLabels:
-#      app: db-tier
+#      {{ .Values.stateSet.labelKey }}: {{ .Values.stateSet.labelValue }}
 #  ingress:
 #  - from:
 #    - podSelector:
 #        matchLabels:
-#          app: app-api
+#          app: {{ .Values.stackPods.appTierName }}

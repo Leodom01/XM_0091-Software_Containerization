@@ -32,3 +32,6 @@ stateSet:
 svc:
   type: ClusterIP
   exposedPort: 30003
+
+stackPods:
+  appTierName: app-api

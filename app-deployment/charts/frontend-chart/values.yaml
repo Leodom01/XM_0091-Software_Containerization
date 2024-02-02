@@ -37,3 +37,6 @@ svc:
     containerPort: 80
     nodePort: 30002
     clusterPort: 8091
+
+stackPods:
+  appTierName: app-api

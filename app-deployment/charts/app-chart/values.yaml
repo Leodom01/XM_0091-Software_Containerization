@@ -40,3 +40,7 @@ configMap:
 secret:
   key: MONGODB_PW
   value: cGFzc3dvcmQ=
+
+stackPods:
+  presentationTierName: presentation
+  dbTierName: db
