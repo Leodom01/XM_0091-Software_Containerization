@@ -1,0 +1,16 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: frontend-role
+rules:
+  - apiGroups: [""]
+    resources:
+      [
+        "pods",
+        "services",
+        "deployments",
+        "networkpolicies",
+        "configmaps",
+      ]
+    verbs: ["get", "list", "watch"]

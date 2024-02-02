@@ -1,11 +1,15 @@
 general:
   standardName: presentation
+  namespace: default
 
 configMap:
   vueHostKey: VUE_APP_API_URI
   vueHost: app-svc
   vuePortKey: VUE_APP_API_PORT
   vuePort: 8081
+
+serviceAccount:
+  name: frontend-sa
 
 deployment:
   label:

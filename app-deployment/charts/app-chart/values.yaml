@@ -1,5 +1,9 @@
 general:
   standardName: app
+  namespace: default
+
+serviceAccount:
+  name: backend-sa
 
 deployment:
   label:

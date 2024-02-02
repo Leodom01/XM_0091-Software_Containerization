@@ -1,5 +1,6 @@
 general:
   standardName: mongo
+  namespace: default
 
 db:
   userKey: MONGODB_USER
@@ -15,6 +16,9 @@ pvc:
   storageClassName: mongodb-hostpath
   volumeMode: Filesystem
 
+serviceAccount:
+  name: db-sa
+
 stateSet:
   replicas: 1
   serviceName: db-tier
@@ -25,6 +29,6 @@ stateSet:
   containerPort: 27017
   pvcMountPath: /data/db
 
-svc: 
+svc:
   type: ClusterIP
   exposedPort: 30003
