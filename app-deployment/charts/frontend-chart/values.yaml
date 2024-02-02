@@ -20,6 +20,8 @@ deployment:
     varUriName: VUE_APP_API_URI
     varPortName: VUE_APP_API_PORT
     configMapRefName: presentation-config
+  serviceAccountName: frontend-sa
+  namespace: default
 
 svc:
   type: NodePort

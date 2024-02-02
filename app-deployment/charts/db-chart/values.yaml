@@ -24,7 +24,9 @@ stateSet:
   containerImage: ghcr.io/leodom01/xm_0091-software_containerization_db:latest
   containerPort: 27017
   pvcMountPath: /data/db
+  serviceAccountName: db-sa
+  namespace: default
 
-svc: 
+svc:
   type: ClusterIP
   exposedPort: 30003

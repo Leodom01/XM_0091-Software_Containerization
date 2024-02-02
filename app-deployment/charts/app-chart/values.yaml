@@ -17,6 +17,8 @@ svc:
   nodePort: 30001
   containerPort: 8000
   exposedPort: 8081
+  serviceAccountName: backend-sa
+  namespace: default
 
 configMap:
   - key: MONGODB_USER

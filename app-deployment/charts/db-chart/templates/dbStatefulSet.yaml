@@ -17,6 +17,7 @@ spec:
       annotations:
         rollme: {{ randAlphaNum 5 | quote }}
     spec:
+      serviceAccountName: {{ .Values.general.serviceAccountName }}
       containers:
       - name: {{ .Values.stateSet.containerName }}
         image: {{ .Values.stateSet.containerImage }}
