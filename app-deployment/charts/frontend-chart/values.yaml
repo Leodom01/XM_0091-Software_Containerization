@@ -24,6 +24,11 @@ deployment:
     varUriName: VUE_APP_API_URI
     varPortName: VUE_APP_API_PORT
     configMapRefName: presentation-config
+  hpa: 
+    minReplicas: 1
+    maxReplicas: 10
+    resourceType: cpu
+    averageValue: 50m
 
 svc:
   type: NodePort
