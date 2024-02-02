@@ -1,9 +1,6 @@
 general:
   standardName: presentation
-<<<<<<< HEAD
-=======
   namespace: default
->>>>>>> fab5f5b (moved charts into app-deployment, renamed rbac to rbac-chart)
 
 configMap:
   vueHostKey: VUE_APP_API_URI
@@ -11,12 +8,9 @@ configMap:
   vuePortKey: VUE_APP_API_PORT
   vuePort: 8081
 
-<<<<<<< HEAD
-=======
 serviceAccount:
   name: frontend-sa
 
->>>>>>> fab5f5b (moved charts into app-deployment, renamed rbac to rbac-chart)
 deployment:
   label:
     key: app
@@ -30,11 +24,6 @@ deployment:
     varUriName: VUE_APP_API_URI
     varPortName: VUE_APP_API_PORT
     configMapRefName: presentation-config
-<<<<<<< HEAD
-  serviceAccountName: frontend-sa
-  namespace: default
-=======
->>>>>>> fab5f5b (moved charts into app-deployment, renamed rbac to rbac-chart)
 
 svc:
   type: NodePort

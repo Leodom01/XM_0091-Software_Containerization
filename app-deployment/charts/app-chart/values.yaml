@@ -1,12 +1,9 @@
 general:
   standardName: app
-<<<<<<< HEAD
-=======
   namespace: default
 
 serviceAccount:
   name: backend-sa
->>>>>>> fab5f5b (moved charts into app-deployment, renamed rbac to rbac-chart)
 
 deployment:
   label:
@@ -24,11 +21,6 @@ svc:
   nodePort: 30001
   containerPort: 8000
   exposedPort: 8081
-<<<<<<< HEAD
-  serviceAccountName: backend-sa
-  namespace: default
-=======
->>>>>>> fab5f5b (moved charts into app-deployment, renamed rbac to rbac-chart)
 
 configMap:
   - key: MONGODB_USER
