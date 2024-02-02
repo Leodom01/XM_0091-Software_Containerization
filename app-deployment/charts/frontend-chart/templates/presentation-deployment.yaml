@@ -14,7 +14,11 @@ spec:
       labels:
         {{ .Values.deployment.label.key }}: {{ .Values.deployment.label.value }}
     spec:
+<<<<<<< HEAD
       serviceAccountName: {{ .Values.deployment.serviceAccountName }}
+=======
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+>>>>>>> fab5f5b (moved charts into app-deployment, renamed rbac to rbac-chart)
       containers:
         - name: {{ .Values.deployment.container.name }}
           image: {{ .Values.deployment.container.image }}

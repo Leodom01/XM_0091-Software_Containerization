@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #kind: NetworkPolicy
 #apiVersion: networking.k8s.io/v1
 #metadata:
@@ -11,3 +12,29 @@
 #    - podSelector:
 #        matchLabels:
 #          app: app-api
+=======
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: db-allow
+spec:
+  podSelector:
+    matchLabels:
+      app: db-tier
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: app-api
+    - podSelector:
+        matchLabels:
+          app: presentation
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+            app: presentation
+    - podSelector:
+        matchLabels:
+            app: app-api
+>>>>>>> fab5f5b (moved charts into app-deployment, renamed rbac to rbac-chart)

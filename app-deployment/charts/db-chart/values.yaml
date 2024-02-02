@@ -1,5 +1,9 @@
 general:
   standardName: mongo
+<<<<<<< HEAD
+=======
+  namespace: default
+>>>>>>> fab5f5b (moved charts into app-deployment, renamed rbac to rbac-chart)
 
 db:
   userKey: MONGODB_USER
@@ -15,6 +19,12 @@ pvc:
   storageClassName: mongodb-hostpath
   volumeMode: Filesystem
 
+<<<<<<< HEAD
+=======
+serviceAccount:
+  name: db-sa
+
+>>>>>>> fab5f5b (moved charts into app-deployment, renamed rbac to rbac-chart)
 stateSet:
   replicas: 1
   serviceName: db-tier
@@ -24,8 +34,11 @@ stateSet:
   containerImage: ghcr.io/leodom01/xm_0091-software_containerization_db:latest
   containerPort: 27017
   pvcMountPath: /data/db
+<<<<<<< HEAD
   serviceAccountName: db-sa
   namespace: default
+=======
+>>>>>>> fab5f5b (moved charts into app-deployment, renamed rbac to rbac-chart)
 
 svc:
   type: ClusterIP

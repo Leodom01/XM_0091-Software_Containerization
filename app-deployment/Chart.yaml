@@ -13,6 +13,7 @@ description: Whole application deployment
 type: application
 
 dependencies:
+<<<<<<< HEAD
 - name: db-chart
   version: "0.1"
   repository: "file://charts/db-chart"
@@ -22,6 +23,20 @@ dependencies:
 - name: frontend-chart
   version: "0.1"
   repository: "file://charts/frontend-chart"
+=======
+  - name: db-chart
+    version: "0.1"
+    repository: "file://charts/db-chart"
+  - name: app-chart
+    version: "0.1"
+    repository: "file://charts/app-chart"
+  - name: frontend-chart
+    version: "0.1"
+    repository: "file:///charts/frontend-chart"
+  # - name: rbac-chart
+  #   version: "0.1"
+  #   repository: "file://charts/rbac-chart"
+>>>>>>> fab5f5b (moved charts into app-deployment, renamed rbac to rbac-chart)
 
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
