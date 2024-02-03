@@ -15,6 +15,8 @@ from bson import json_util
 
 app = Flask(__name__)
 
+appVersionToPrint="latest"
+
 # MongoDB Config
 # TODO: Replace with our MongoDB URI
 
@@ -112,7 +114,7 @@ def add_reminder():
 
 @app.route("/", methods=["GET"])
 def index():
-    return jsonify({"message": "Hello World"}), 201
+    return jsonify({"message": "Hello World, I am version: "+str(appVersionToPrint)}), 201
 
 
 if __name__ == "__main__":

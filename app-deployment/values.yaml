@@ -1,3 +1,12 @@
 # Default values for app-deployment.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+
+
+# I am gonna declare these variables at a global level to ease the new image rollout demo.
+# Ideally every alues that should be often modified should be deifined here (that would make it easier to --set in helm)
+global:
+  images:
+    appTier: ghcr.io/leodom01/xm_0091-software_containerization_app:latest
+    presentationTier: ghcr.io/leodom01/xm_0091-software_containerization_presentation:latest
+    dbTier: ghcr.io/leodom01/xm_0091-software_containerization_db:latest

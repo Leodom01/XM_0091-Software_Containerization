@@ -20,7 +20,7 @@ spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       containers:
       - name: {{ .Values.stateSet.containerName }}
-        image: {{ .Values.stateSet.containerImage }}
+        image: {{ .Values.global.images.dbTier }}
         env:
         - name: {{ .Values.db.userKey }}
           valueFrom:

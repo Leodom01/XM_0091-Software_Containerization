@@ -17,7 +17,7 @@ spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       containers:
       - name: {{ .Values.deployment.container.name }}
-        image: {{ .Values.deployment.container.image }}
+        image: {{ .Values.global.images.appTier }}
         ports:
         - containerPort: {{ .Values.deployment.container.port }}
         env:
