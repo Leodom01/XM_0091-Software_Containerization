@@ -68,19 +68,46 @@ def login():
 @app.route("/reminders", methods=["GET"])
 def get_reminders():
     app.logger.info("User request reminders")
+    
+    # Retrieve reminders from MongoDB
     reminders = mongo.db.reminders.find()
+    
+    # Extract and serialize data into JSON
     resp = []
     for reminder in reminders:
-        resp.append(json_util.dumps(reminder))
+        # Extract the fields you want from the reminder document
+        reminder_data = {
+            "title": reminder["title"],  # Replace with actual field names
+            "body": reminder["body"],
+            # Add more fields as needed
+        }
+        # Serialize the extracted data to JSON
+        resp.append(json_util.dumps(reminder_data))
+    
+    # Return JSON response
     return jsonify({"reminders": resp})
 
 
 @app.route("/reminders", methods=["POST"])
 def add_reminder():
-    app.logger.info("user added reminder")
+    app.logger.info("User added a reminder")
+    
+    # Retrieve the reminder data from the request's JSON payload
     reminder = request.json
+    
+    # Insert the reminder into MongoDB
     mongo.db.reminders.insert_one(reminder)
-    return reminder, 201
+    
+    # Convert the reminder object to a dictionary
+    reminder_dict = {
+        "title": reminder.get("title"),  # Replace with actual field names
+        "body": reminder.get("body"),
+        # Add more fields as needed
+    }
+    
+    # Return the reminder dictionary in the response
+    return jsonify(reminder_dict), 201
+
 
 
 @app.route("/", methods=["GET"])

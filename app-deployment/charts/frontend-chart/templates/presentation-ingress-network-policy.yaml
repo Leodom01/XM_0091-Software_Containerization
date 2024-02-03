@@ -1,13 +1,13 @@
-#kind: NetworkPolicy
-#apiVersion: networking.k8s.io/v1
-#metadata:
-#  name: {{ .Values.general.standardName }}-api-allow
-#spec:
-#  podSelector:
-#    matchLabels:
-#      {{ .Values.deployment.label.key }}: {{ .Values.deployment.label.value }}
-#  ingress:
-#  - from:
-#    - podSelector:
-#        matchLabels:
-#          app: {{ .Values.stackPods.appTierName }}
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: {{ .Values.general.standardName }}-api-allow
+spec:
+  podSelector:
+    matchLabels:
+      {{ .Values.deployment.label.key }}: {{ .Values.deployment.label.value }}
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: {{ .Values.stackPods.appTierName }}
