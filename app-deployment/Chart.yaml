@@ -22,6 +22,9 @@ dependencies:
   - name: frontend-chart
     version: "0.1"
     repository: "file:///charts/frontend-chart"
+  - name: rbac-chart
+    version: "0.1"
+    repository: "file:///charts/rbac-chart"
 
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
