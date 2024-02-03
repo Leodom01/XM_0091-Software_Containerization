@@ -1,7 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import HomeView from "../components/HomeView.vue";
-import UserLogin from "../components/UserLogin.vue";
-import UserRegistration from "../components/UserRegistration.vue";
+import CreateReminderView from "../components/CreateReminderView.vue";
 // lazy-loaded
 // const Profile = () => import("./components/Profile.vue")
 // const BoardAdmin = () => import("./components/BoardAdmin.vue")
@@ -15,13 +14,10 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/login",
-    component: UserLogin,
+    path: "/create",
+    name: "create",
+    component: CreateReminderView,
   },
-  {
-    path: "/register",
-    component: UserRegistration,
-  }
 ];
 
 const router = createRouter({

@@ -1,26 +1,9 @@
 <template>
-    <!-- header: show not logged in: login, register, logged in: show logged out> -->
-    <!-- body: show reminders if logged in, else show "USer not logged in"> -->
-    <header>
-
-        <div v-if="!loggedIn">
-            <button @click="forwardToLogin">Login</button>
-            <button @click="forwardToRegister">Register</button>
-        </div>
-        <div v-else>
-            <button @click="logout">Logout</button>
-        </div>
+    <header id="header">
+        <button @click="forwardToCreate" class="btn btn-primary">Create Reminder</button>
     </header>
     <main>
-        <div v-if="loggedIn">
-            <div>
-                User: {{ this.$store.state.auth.user.email }}
-            </div>
-            <ReminderList />
-        </div>
-        <div v-else>
-            <p>No user logged in.</p>
-        </div>
+        <ReminderList />
     </main>
 </template>
 
@@ -31,21 +14,19 @@ export default {
     components: {
         ReminderList,
     },
-    computed: {
-        loggedIn() {
-            return this.$store.state.auth.status.loggedIn;
-        },
-    },
     methods: {
-        logout() {
-            this.$store.dispatch("auth/logout");
-        },
-        forwardToLogin() {
-            this.$router.push("/login");
-        },
-        forwardToRegister() {
-            this.$router.push("/register");
+        forwardToCreate() {
+            this.$router.push("/create");
         },
     },
 };
 </script>
+
+<style>
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+</style>
