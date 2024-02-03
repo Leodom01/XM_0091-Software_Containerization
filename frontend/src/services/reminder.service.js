@@ -16,7 +16,6 @@ class ReminderService {
     }
 
     createReminder(reminder) {
-        console.log(reminder);
         return axios.post(API_URL + REMINDERS_ENDPOINT, reminder);
     }
 

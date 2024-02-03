@@ -7,7 +7,7 @@
             <p>No reminders yet.</p>
         </div>
         <div v-else>
-            <div v-for="reminder in reminders" :key="reminder.id" id="item">
+            <div v-for="(reminder, index) in reminders" :key="index" id="item">
                 <h3>{{ reminder.title }}</h3>
                 <p>{{ reminder.body }}</p>
             </div>
@@ -36,12 +36,6 @@ export default {
                 //     "creation_date": "1939-08-15T08:00:00Z",
                 //     "owner": "0"
                 // },
-                // {
-                //     "title": "Send message",
-                //     "body": "Remember to send message to Bob Alicer without getting it sniffed.",
-                //     "creation_date": "2000-01-01T09:30:12Z",
-                //     "owner": "1"
-                // },
             ],
         };
     },
@@ -50,7 +44,9 @@ export default {
             ReminderService.getReminders().then(
                 (response) => {
                     this.message = "";
-                    this.reminders = response.data;
+                    this.reminders = response.data.reminders.map(reminderString => JSON.parse(reminderString));
+
+                    console.log(this.reminders);
                 },
                 (error) => {
                     this.message =
@@ -79,7 +75,7 @@ export default {
         //     );
         // }
     },
-    created() {
+    mounted() {
         this.fetchReminders();
     },
     components: {

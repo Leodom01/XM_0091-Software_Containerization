@@ -3,8 +3,6 @@
     <div id="item">
         <h3>{{ reminder.title }}</h3>
         <p>{{ reminder.body }}</p>
-        <p>Created: {{ reminder.creation_date }} by {{ reminder.owner }}</p>
-        <button @click="deleteReminder()">Delete</button>
         <div v-if="message" class="alert alert-danger" role="alert">
             {{ message }}
         </div>
@@ -29,23 +27,6 @@ export default {
         };
     },
     methods: {
-        async deleteReminder() {
-            ReminderService.getReminders().then(
-                () => {
-                    this.message = "";
-                },
-                (error) => {
-                    console.log("here");
-                    this.message =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
-                }
-            );
-            this.$router.go();
-        }
     }
 };
 </script>
