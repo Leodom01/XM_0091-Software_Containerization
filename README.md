@@ -28,9 +28,8 @@ helm install -g tls/
 ```
 
 ### Disabling the Application
-````
+````bash
 helm uninstall app-deployment-<release-number>
-````
 ````
 ```bash
 kubectl delete -f dbTier/dbPersistentVolume.yaml
