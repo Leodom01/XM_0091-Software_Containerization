@@ -1,4 +1,4 @@
- FROM mongo
+FROM mongo
 
 COPY . /app
 

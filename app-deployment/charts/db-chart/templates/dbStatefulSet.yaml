@@ -12,10 +12,6 @@ spec:
     metadata:
       labels:
         {{ .Values.stateSet.labelKey }}: {{ .Values.stateSet.labelValue }}
-      # Need this to reload pods when some resources change 
-      # TODO Delete this when the template works consistently
-      annotations:
-        rollme: {{ randAlphaNum 5 | quote }}
     spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       containers:
