@@ -1,0 +1,51 @@
+# Source: app-deployment/charts/app-chart/templates/app-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment-v2
+  labels:
+    app: app-api
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-api
+  template:
+    metadata:
+      labels:
+        app: app-api
+        version: v1
+    spec:
+      serviceAccountName: backend-sa
+      containers:
+      - name: app-container
+        image: ghcr.io/leodom01/xm_0091-software_containerization_app:v2
+        ports:
+        - containerPort: 8000
+        env:
+        - name: MONGODB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: MONGODB_USER
+        - name: MONGODB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: MONGODB_HOST
+        - name: MONGODB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: MONGODB_PORT
+        - name: MONGODB_DB
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: MONGODB_DB
+        - name: MONGODB_PW
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: MONGODB_PW

@@ -1,9 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.general.standardName }}-deployment
+  name: {{ .Values.general.standardName }}-deployment-v1
   labels:
     {{ .Values.deployment.label.key }}: {{ .Values.deployment.label.value }}
+    version: v1
 spec:
   replicas: {{ .Values.deployment.replicas }}
   selector:
@@ -13,6 +14,7 @@ spec:
     metadata:
       labels:
         {{ .Values.deployment.label.key }}: {{ .Values.deployment.label.value }}
+        version: v1
     spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       containers:

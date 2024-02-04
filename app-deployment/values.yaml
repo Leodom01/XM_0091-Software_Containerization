@@ -7,6 +7,6 @@
 # Ideally every alues that should be often modified should be deifined here (that would make it easier to --set in helm)
 global:
   images:
-    appTier: ghcr.io/leodom01/xm_0091-software_containerization_app:latest
+    appTier: ghcr.io/leodom01/xm_0091-software_containerization_app:v1
     presentationTier: ghcr.io/leodom01/xm_0091-software_containerization_presentation:latest
     dbTier: ghcr.io/leodom01/xm_0091-software_containerization_db:latest
