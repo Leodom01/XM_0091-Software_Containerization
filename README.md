@@ -1,6 +1,14 @@
 # XM_0091-Software_Containerization
 This repository contains the source code of a 3-tier application that is containerized using Docker and deployed on Kubernetes. The application is a simple reminder app that allows users to add reminders.
 
+## Contributors
+You can find the repository at https://github.com/Leodom01/XM_0091-Software_Containerization
+
+Contributors:
+- Leonardo Dominici
+- Dalvie Benu
+- Minh Duc Nguyen
+
 ## Running the Application
 In order to run the app reachable at http://localhost:30002/, you need to follow the steps below.
 ### 1. Setting Up Persistent Volume
@@ -19,10 +27,31 @@ Add "127.0.0.1 reminder.com" to /etc/hosts in order to access the app via http:/
 helm install -g tls/
 ```
 
-## Contributors
-You can find the repository at https://github.com/Leodom01/XM_0091-Software_Containerization
+## Application Architecture
+pic
 
-Contributors:
-- Leonardo Dominici
-- Dalvie Benu
-- Minh Duc Nguyen
+## Requirements
+### Persestent Layer
+
+### REST API
+scaling by hpa
+
+
+### Web Frontend
+scaling by hpa
+
+
+### TLS
+
+### Helm Chart
+
+
+### Security - Network Policies
+
+### Security - RBAC
+
+
+### Google Cloud Platform
+
+
+
