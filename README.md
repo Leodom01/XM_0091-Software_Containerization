@@ -27,31 +27,66 @@ Add "127.0.0.1 reminder.com" to /etc/hosts in order to access the app via http:/
 helm install -g tls/
 ```
 
+### Disabling the Application
+````
+helm uninstall app-deployment-<release-number>
+````
+````
+```bash
+kubectl delete -f dbTier/dbPersistentVolume.yaml
+```
+```bash
+helm uninstall tls-<release-number>
+```
+
 ## Application Architecture
-pic
+![Architecture](figs/architecture.jpeg)
 
 ## Requirements
 ### Persestent Layer
+- Directory: dbTier
+- Image: mongo
+- Deployed as: StatefulSet
+- Service: ClusterIP
 
 ### REST API
-scaling by hpa
-
+- Directory: apiTier
+- Framework: Flask
+- Deployed as: Deployment
+- Service: NodePort
+- Scaling: Horizontal Pod Autoscaler
 
 ### Web Frontend
-scaling by hpa
-
+- Directory: webTier
+- Framework: Vue.js
+- Deployed as: Deployment
+- Service: NodePort
+- Scaling: Horizontal Pod Autoscaler
 
 ### TLS
+- Directory: tls
+- Self-made certificate authority with cer-manager
+- Ingress for rerouting traffic from http to https
+
 
 ### Helm Chart
-
+- Directory: app-deployment
+- Helm chart for deploying the 3-tier application
 
 ### Security - Network Policies
+- presentation tiert: only accepts traffic from the apiTier
+- api tier: only accepts traffic from the presentationTier and the db tier
+- db tier: only accepts traffic from the api tier
 
 ### Security - RBAC
+- Service account for each tier
+- get, watch, list for certain resources 
+- Roles: frontend, backend, db
 
 
 ### Google Cloud Platform
+- Deployment on GKE (as seen in the presentation)
+- Persistent Volume on GCP uses standard-rwo storage class
 
 
 
